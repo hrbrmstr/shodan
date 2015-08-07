@@ -1,3 +1,5 @@
+![](shodan.png)
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 shodan is an R package interface to the [Shodan API](https://developer.shodan.io/api/requirements).
 
@@ -338,7 +340,7 @@ library(shodan)
 library(testthat)
 
 date()
-#> [1] "Fri Aug  7 09:46:26 2015"
+#> [1] "Fri Aug  7 09:56:15 2015"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================
