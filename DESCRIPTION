@@ -1,9 +1,10 @@
 Package: shodan
-Title: What the Package Does (one line, title case)
+Title: Tools to Query and Instrument the Shodan Security Search Engine API
 Version: 0.0.0.9000
 Authors@R: c(person("Bob", "Rudis", email = "bob@rudis.net", role = c("aut", "cre")))
-Description: What the package does (one paragraph).
-Depends: R (>= 3.2.1)
+Description: Provides functions to work with all components of the Shodan
+             <http://shodan.io> API except for the streaming API.
+Depends: R (>= 3.0.0)
 License: MIT + file LICENSE
 LazyData: true
 Suggests: testthat
