@@ -1,0 +1,98 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+shodan is an R package interface to the [Shodan API](https://developer.shodan.io/api/requirements).
+
+NOTE that the [Shodan Streaming API](https://developer.shodan.io/api/stream) function are _not_ implemented.
+
+Also, most of the functions return `list` data structures given the nested structure of the Shodan query results. Functions like `shodan_ports()` will sanely return simple vectors and others like `shodan_protocols()` will return plain `data.frames`. I am _very_ open to collaboration to ensure the return types are as useful to callers. File an issue or e-mail/tweet me if interested.
+
+The package expects `SHODAN_API_KEY` to be in the environment and the easiest way to do that is to stick it in your `.Renviron` file.
+
+The following functions are implemented:
+
+- `account_profile`:	Account Profile
+- `api_info`:	API Plan Information
+- `host_count`:	Search Shodan without Results
+- `host_info`:	Host Information
+- `my_ip`:	My IP Address
+- `query_tags`:	List the most popular tags
+- `resolve`:	DNS Lookup
+- `reverse`:	Reverse DNS Lookup
+- `shodan_api_key`:	Get or set SHODAN_API_KEY value
+- `shodan_exploit_search`:	Search for Exploits
+- `shodan_exploit_search_count`:	Search for Exploits without Results
+- `shodan_ports`:	List all ports that Shodan is crawling on the Internet.
+- `shodan_protocols`:	List all protocols that can be used when performing on-demand Internet scans via Shodan.
+- `shodan_query_list`:	List the saved search queries
+- `shodan_query_search`:	Search the directory of saved search queries.
+- `shodan_scan`:	Request Shodan to crawl an IP/ netblock
+- `shodan_scan_internet`:	Crawl the Internet for a specific port and protocol using Shodan
+- `shodan_search`:	Search Shodan
+- `shodan_search_tokens`:	Break the search query into tokens
+- `shodan_services`:	List all services that Shodan crawls
+
+
+### News
+
+- Version 0.0.0.9000 released
+
+### Installation
+
+```{r eval=FALSE}
+devtools::install_github("hrbrmstr/shodan")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+options(width=120)
+```
+
+### Usage
+
+```{r}
+library(shodan)
+
+# current verison
+packageVersion("shodan")
+
+shodan_ports()
+
+shodan_protocols()
+
+resolve("dds.ec")
+
+reverse("162.243.111.4")
+
+query_tags()$matches
+
+shodan_query_list()$matches
+```
+
+### Test Results
+
+```{r}
+library(shodan)
+library(testthat)
+
+date()
+
+test_dir("tests/")
+```
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). 
+By participating in this project you agree to abide by its terms.
