@@ -30,8 +30,7 @@ host_count <- function(query=NULL, facets=NULL) {
              path="shodan/host/count",
              query=list(query=query,
                         facets=facets,
-                        key=shodan_api_key()),
-             verbose())
+                        key=shodan_api_key()))
 
   stop_for_status(res)
 

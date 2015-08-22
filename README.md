@@ -34,6 +34,7 @@ The following functions are implemented:
 
 ### News
 
+-   Version 0.0.1.9000 released - disable `verbose()` on count calls
 -   Version 0.0.0.9000 released
 
 ### Installation
@@ -57,12 +58,13 @@ shodan_ports()
 #>  [39]   500   502   503   515   520   523   554   623   626   631   666   771   789   873   902   992   993   995  1010
 #>  [58]  1023  1025  1177  1200  1234  1311  1434  1471  1604  1723  1883  1900  1911  1962  1991  2067  2082  2083  2086
 #>  [77]  2087  2123  2152  2181  2222  2323  2332  2375  2376  2404  2455  2480  2628  3000  3128  3306  3386  3388  3389
-#>  [96]  3460  3689  3749  3780  3784  3790  4000  4022  4040  4369  4443  4444  4500  4848  4911  4949  5000  5001  5006
-#> [115]  5007  5008  5009  5060  5094  5222  5353  5357  5432  5555  5560  5632  5900  5901  5985  5986  6000  6379  6664
-#> [134]  6666  7071  7218  7474  7547  7548  7657  7777  8000  8069  8080  8081  8086  8087  8089  8090  8098  8099  8112
-#> [153]  8139  8140  8181  8333  8334  8443  8554  8649  8834  8888  9000  9001  9002  9051  9080  9100  9151  9160  9191
-#> [172]  9200  9443  9595  9600  9943  9944  9981  9999 10000 10001 10243 11211 12345 14147 16010 18245 20000 20547 21379
-#> [191] 23424 25565 27015 27017 28017 32400 32764 37777 44818 47808 49152 49153 50100 51106 55553 55554 62078 64738
+#>  [96]  3460  3689  3749  3780  3784  3790  4000  4022  4040  4369  4443  4444  4500  4567  4848  4911  4949  5000  5001
+#> [115]  5006  5007  5008  5009  5060  5094  5222  5353  5357  5432  5555  5560  5632  5900  5901  5985  5986  6000  6379
+#> [134]  6664  6666  7071  7218  7474  7547  7548  7657  7777  8000  8060  8069  8080  8081  8086  8087  8089  8090  8098
+#> [153]  8099  8112  8139  8140  8181  8333  8334  8443  8554  8649  8834  8888  9000  9001  9002  9051  9080  9100  9151
+#> [172]  9160  9191  9200  9443  9595  9600  9943  9944  9981  9999 10000 10001 10243 11211 12345 13579 14147 16010 18245
+#> [191] 20000 20547 21025 21379 23023 23424 25565 27015 27017 28017 32400 32764 37777 44818 47808 49152 49153 50100 51106
+#> [210] 55553 55554 62078 64738
 
 shodan_protocols()
 #>                        protocol
@@ -165,22 +167,23 @@ shodan_protocols()
 #> 97                        smtps
 #> 98                         snmp
 #> 99                          ssh
-#> 100 steam-dedicated-server-rcon
-#> 101                      telnet
-#> 102                     telnets
-#> 103                 tor-control
-#> 104                tor-versions
-#> 105                 toshiba-pos
-#> 106                       udpxy
-#> 107                        upnp
-#> 108                    ventrilo
-#> 109                   voldemort
-#> 110                      wdbrpc
-#> 111                   wemo-http
-#> 112                         x11
-#> 113                        xmpp
-#> 114               yahoo-smarttv
-#> 115                   zookeeper
+#> 100                   steam-a2s
+#> 101 steam-dedicated-server-rcon
+#> 102                      telnet
+#> 103                     telnets
+#> 104                 tor-control
+#> 105                tor-versions
+#> 106                 toshiba-pos
+#> 107                       udpxy
+#> 108                        upnp
+#> 109                    ventrilo
+#> 110                   voldemort
+#> 111                      wdbrpc
+#> 112                   wemo-http
+#> 113                         x11
+#> 114                        xmpp
+#> 115               yahoo-smarttv
+#> 116                   zookeeper
 #>                                                                                                description
 #> 1                                Checks whether the device is running the remote mouse AndroMouse service.
 #> 2                                   Check whether the device is an Apple AirPort administrative interface.
@@ -281,22 +284,23 @@ shodan_protocols()
 #> 97                                                         Grab a banner and certificate for SMTPS servers
 #> 98                                                            Gets the sysDescr.0 MIB of the SNMP service.
 #> 99                                                        Get the SSH banner, its host key and fingerprint
-#> 100   Checks whether an IP is running as a Steam dedicated game server with remote authentication enabled.
-#> 101                                                                          Telnet banner grabbing module
-#> 102                                                           Telnet wrapped in SSL banner grabbing module
-#> 103                                            Checks whether a device is running the Tor control service.
-#> 104                                              Checks whether the device is running the Tor OR protocol.
-#> 105                                                    Grabs device information for the IBM/ Toshiba 4690.
-#> 106                                                                           Udpxy banner grabbing module
-#> 107                                                                  Collects device information via UPnP.
-#> 108                                           Gets the detailed status information from a Ventrilo server.
-#> 109                                                                          Pings the Voldemort database.
-#> 110                      Checks whehter the WDB agent (used for debugging) is enabled on a VxWorks device.
-#> 111                                                     Connect to a Wemo Link and grab the setup.xml file
-#> 112                                               Connect to X11 w/ no auth and grab the resulting banner.
-#> 113                                                               Sends a hello request to the XMPP daemon
-#> 114                  Checks whether the device is running the Yahoo Smart TV device communication service.
-#> 115                                                     Grab statistical information from a Zookeeper node
+#> 100                            Get a list of IPs that NTP server recently saw and try to get version info.
+#> 101   Checks whether an IP is running as a Steam dedicated game server with remote authentication enabled.
+#> 102                                                                          Telnet banner grabbing module
+#> 103                                                           Telnet wrapped in SSL banner grabbing module
+#> 104                                            Checks whether a device is running the Tor control service.
+#> 105                                              Checks whether the device is running the Tor OR protocol.
+#> 106                                                    Grabs device information for the IBM/ Toshiba 4690.
+#> 107                                                                           Udpxy banner grabbing module
+#> 108                                                                  Collects device information via UPnP.
+#> 109                                           Gets the detailed status information from a Ventrilo server.
+#> 110                                                                          Pings the Voldemort database.
+#> 111                      Checks whehter the WDB agent (used for debugging) is enabled on a VxWorks device.
+#> 112                                                     Connect to a Wemo Link and grab the setup.xml file
+#> 113                                               Connect to X11 w/ no auth and grab the resulting banner.
+#> 114                                                               Sends a hello request to the XMPP daemon
+#> 115                  Checks whether the device is running the Yahoo Smart TV device communication service.
+#> 116                                                     Grab statistical information from a Zookeeper node
 
 resolve("dds.ec")
 #>     host            ip
@@ -320,17 +324,28 @@ query_tags()$matches
 #> 10    28      1
 
 shodan_query_list()$matches
-#>    votes             description             title                  timestamp         tags             query
-#> 1      1 busqueada simple gamesa            Gamesa 2015-08-07T12:36:57.892000       gamesa            gamesa
-#> 2      7             Spy webcams               spy 2015-08-07T02:11:46.658000          cam        tablet cam
-#> 3      8                  dsfdas           Uruguay 2015-08-05T12:03:48.784000           25        country:UY
-#> 4     17             Hidden cams       Hidden cams 2015-08-04T09:17:30.992000 hidden, cams        Hidden cam
-#> 5      2                     500 Matrix VoIPServer 2015-08-04T02:21:01.857000          500 Matrix VoIPServer
-#> 6      2                     xml               xml 2015-08-03T19:19:47.140000          xml               xml
-#> 7     20                     php               php 2015-08-01T15:15:31.954000          php       ericsson.se
-#> 8      5                   chile           Cortexa 2015-08-01T02:43:13.565000        chile           Cortexa
-#> 9      6                    gnam              xmls 2015-07-31T22:07:55.437000          xml             xmlns
-#> 10    33                     hts                eh 2015-07-30T13:19:00.807000          str   118.171.213.215
+#>    votes                          description                  title                  timestamp                tags
+#> 1      4                               fdsfsd             bps camera 2015-08-21T16:09:18.118000                 dad
+#> 2      3                              Finland                Finland 2015-08-20T14:10:06.794000             finland
+#> 3      3                             18_08_15                ewon AT 2015-08-18T12:27:45.548000            ewon, at
+#> 4      3                                qqweq                    Pos 2015-08-18T11:26:36.824000             us, pos
+#> 5      1                                  aaa                   bjtu 2015-08-15T05:42:29.225000                 aaa
+#> 6      5 Hosts that are listening on port 111               port 111 2015-08-13T02:45:10.852000 portmapper, rpcbind
+#> 7      4                                 univ             Univ in KR 2015-08-13T02:05:20.666000                univ
+#> 8      3                        jackass house 21.095052, -101.642462 2015-08-12T19:51:57.010000      jackass, house
+#> 9      4                                  hhh                      b 2015-08-12T13:34:41.401000                  gh
+#> 10     1                                 CERN                   CERN 2015-08-12T09:17:44.048000                cern
+#>                         query
+#> 1                192.168.0.89
+#> 2                  country:FI
+#> 3             ewon country:AT
+#> 4              pos country:US
+#> 5        net:202.112.154.0/24
+#> 6                    port:111
+#> 7       university country:KR
+#> 8  geo:21.095052, -101.642462
+#> 9          DD-WRT  country:GB
+#> 10         net:188.184.0.0/16
 ```
 
 ### Test Results
@@ -340,7 +355,7 @@ library(shodan)
 library(testthat)
 
 date()
-#> [1] "Fri Aug  7 09:56:15 2015"
+#> [1] "Sat Aug 22 19:48:36 2015"
 
 test_dir("tests/")
 #> testthat results ========================================================================================================

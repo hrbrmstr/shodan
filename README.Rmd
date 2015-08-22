@@ -49,6 +49,7 @@ The following functions are implemented:
 
 ### News
 
+- Version 0.0.1.9000 released - disable `verbose()` on count calls
 - Version 0.0.0.9000 released
 
 ### Installation
@@ -63,7 +64,7 @@ options(width=120)
 
 ### Usage
 
-```{r}
+```{r fo_sho, cache=TRUE}
 library(shodan)
 
 # current verison
