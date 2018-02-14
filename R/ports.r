@@ -7,15 +7,15 @@
 #' @examples
 #' shodan_ports()
 shodan_ports <- function() {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/ports",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/ports",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' List all protocols that can be used when performing on-demand Internet
@@ -29,19 +29,25 @@ shodan_ports <- function() {
 #' @examples
 #' shodan_protocols()
 shodan_protocols <- function() {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/protocols",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/protocols",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
+  tmp <- jsonlite::fromJSON(httr::content(res, as = "text"))
 
-  tmp <- fromJSON(content(res, as="text"))
+  data.frame(
+    protocol = names(tmp),
+    description = unlist(tmp, use.names = FALSE),
+    stringsAsFactors = FALSE
+  ) -> out
 
-  data.frame(protocol=names(tmp),
-             description=unlist(tmp, use.names=FALSE),
-             stringsAsFactors=FALSE)
+  class(out) <- c("tbl_df", "tbl", "data.frame")
 
+  out
 }
 
 
@@ -56,17 +62,23 @@ shodan_protocols <- function() {
 #' @examples
 #' shodan_services()
 shodan_services <- function() {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/services",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/services",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
+  tmp <- jsonlite::fromJSON(httr::content(res, as = "text"))
 
-  tmp <- fromJSON(content(res, as="text"))
+  data.frame(
+    service = names(tmp),
+    description = unlist(tmp, use.names = FALSE),
+    stringsAsFactors = FALSE
+  ) -> out
 
-  data.frame(service=names(tmp),
-             description=unlist(tmp, use.names=FALSE),
-             stringsAsFactors=FALSE)
+  class(out) <- c("tbl_df", "tbl", "data.frame")
 
+  out
 }

@@ -9,13 +9,14 @@
 #' @return atomic character vector containing the Shodan API key
 #' @export
 shodan_api_key <- function(force = FALSE) {
-
-  env <- Sys.getenv('SHODAN_API_KEY')
+  env <- Sys.getenv("SHODAN_API_KEY")
   if (!identical(env, "") && !force) return(env)
 
   if (!interactive()) {
-    stop("Please set env var SHODAN_API_KEY to your Shodan API key",
-      call. = FALSE)
+    stop(
+      "Please set env var SHODAN_API_KEY to your Shodan API key",
+      call. = FALSE
+    )
   }
 
   message("Couldn't find env var SHODAN_API_KEY See ?shoan_api_key for more details.")
@@ -30,5 +31,4 @@ shodan_api_key <- function(force = FALSE) {
   Sys.setenv(SHODAN_API_KEY = pat)
 
   pat
-
 }

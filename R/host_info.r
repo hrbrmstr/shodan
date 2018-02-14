@@ -12,15 +12,17 @@
 #' @examples
 #' host_info("41.21.249.170")
 host_info <- function(ip, history=FALSE, minify=FALSE) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = sprintf("shodan/host/%s", ip),
+    query = list(
+      history = history,
+      minify = minify,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path=sprintf("shodan/host/%s", ip),
-             query=list(history=history,
-                        minify=minify,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }

@@ -25,15 +25,17 @@
 #' @examples
 #' host_count("41.21.249.170")
 host_count <- function(query=NULL, facets=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/host/count",
+    query = list(
+      query = query,
+      facets = facets,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/host/count",
-             query=list(query=query,
-                        facets=facets,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }

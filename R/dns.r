@@ -12,22 +12,30 @@
 #' resolve("google.com,bing.com")
 #' resolve(c("google.com", "bing.com"))
 resolve <- function(hostnames=NULL) {
+  hostnames <- paste(hostnames, collapse = ",")
 
-  hostnames <- paste(hostnames, collapse=",")
+  res <- httr::GET(
+    shodan_base_url,
+    path = "dns/resolve",
+    query = list(
+      hostnames = hostnames,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="dns/resolve",
-             query=list(hostnames=hostnames,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
+  tmp <- jsonlite::fromJSON(httr::content(res, as = "text"))
 
-  tmp <- fromJSON(content(res, as="text"))
+  data.frame(
+    host = names(tmp),
+    ip = unlist(tmp, use.names = FALSE),
+    stringsAsFactors = FALSE
+  ) -> out
 
-  data.frame(host=names(tmp),
-             ip=unlist(tmp, use.names=FALSE),
-             stringsAsFactors=FALSE)
+  class(out) <- c("tbl_df", "tbl", "data.frame")
 
+  out
 }
 
 #' Reverse DNS Lookup
@@ -45,20 +53,28 @@ resolve <- function(hostnames=NULL) {
 #' reverse("74.125.227.230,204.79.197.200")
 #' reverse(c("74.125.227.230", "204.79.197.200"))
 reverse <- function(ips=NULL) {
+  ips <- paste(ips, collapse = ",")
 
-  ips <- paste(ips, collapse=",")
+  res <- httr::GET(
+    shodan_base_url,
+    path = "dns/reverse",
+    query = list(
+      ips = ips,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="dns/reverse",
-             query=list(ips=ips,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
+  tmp <- jsonlite::fromJSON(httr::content(res, as = "text"))
 
-  tmp <- fromJSON(content(res, as="text"))
+  data.frame(
+    ip = names(tmp),
+    host = unlist(tmp, use.names = FALSE),
+    stringsAsFactors = FALSE
+  ) -> out
 
-  data.frame(ip=names(tmp),
-             host=unlist(tmp, use.names=FALSE),
-             stringsAsFactors=FALSE)
+  class(out) <- c("tbl_df", "tbl", "data.frame")
 
+  out
 }

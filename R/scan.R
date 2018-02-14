@@ -15,18 +15,20 @@
 #' @examples
 #' shodan_scan("216.0.0.0/16")
 shodan_scan <- function(ips=NULL) {
+  ips <- paste(ips, collapse = ",")
 
-  ips <- paste(ips, collapse=",")
+  res <- httr::POST(
+    shodan_base_url,
+    path = "shodan/scan",
+    query = list(
+      ips = ips,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- POST(shodan_base_url,
-              path="shodan/scan",
-              query=list(ips=ips,
-                         key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' Crawl the Internet for a specific port and protocol using Shodan
@@ -44,16 +46,17 @@ shodan_scan <- function(ips=NULL) {
 #' @export
 #' @references \url{https://developer.shodan.io/api}
 shodan_scan_internet <- function(port=NULL, protocol=NULL) {
+  res <- httr::POST(
+    shodan_base_url,
+    path = "shodan/scan/internet",
+    query = list(
+      port = port,
+      protocol = protocol,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- POST(shodan_base_url,
-              path="shodan/scan/internet",
-              query=list(port=port,
-                         protocol=protocol,
-                         key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
-

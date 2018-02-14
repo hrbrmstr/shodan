@@ -1,4 +1,24 @@
-shodan_base_url  <- "https://api.shodan.io"
+shodan_base_url <- "https://api.shodan.io"
+
+#' Shows the HTTP headers that your client sends when connecting to a webserver.
+#'
+#' Shows the HTTP headers that your client sends when connecting to a webserver.
+#'
+#' @export
+#' @references \url{https://developer.shodan.io/api}
+#' @examples
+#' http_headers()
+http_headers <- function(ips=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "tools/httpheaders ",
+    query = list(key = shodan_api_key())
+  )
+
+  httr::stop_for_status(res)
+
+  jsonlite::fromJSON(httr::content(res, as = "text"))
+}
 
 #' My IP Address
 #'
@@ -9,15 +29,15 @@ shodan_base_url  <- "https://api.shodan.io"
 #' @examples
 #' my_ip()
 my_ip <- function(ips=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "tools/myip",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="tools/myip",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' API Plan Information
@@ -29,15 +49,15 @@ my_ip <- function(ips=NULL) {
 #' @examples
 #' my_ip()
 api_info <- function(ips=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "api-info",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="api-info",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' Account Profile
@@ -49,15 +69,15 @@ api_info <- function(ips=NULL) {
 #' @examples
 #' account_profile()
 account_profile <- function() {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "account/profile",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="account/profile",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' List the most popular tags
@@ -71,13 +91,13 @@ account_profile <- function() {
 #' @examples
 #' query_tags()
 query_tags <- function(size=10) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/query/tags",
+    query = list(key = shodan_api_key())
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/query/tags",
-             query=list(key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }

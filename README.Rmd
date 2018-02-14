@@ -1,7 +1,7 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: rmarkdown::github_document
+editor_options: 
+  chunk_output_type: console
 ---
 ![](shodan.png)
 
@@ -27,6 +27,7 @@ The following functions are implemented:
 
 - `account_profile`:	Account Profile
 - `api_info`:	API Plan Information
+- `honeyscore` : Honeyport or not?
 - `host_count`:	Search Shodan without Results
 - `host_info`:	Host Information
 - `my_ip`:	My IP Address
@@ -46,13 +47,7 @@ The following functions are implemented:
 - `shodan_search_tokens`:	Break the search query into tokens
 - `shodan_services`:	List all services that Shodan crawls
 
-
-### News
-
-- Version 0.0.1.9000 released - disable `verbose()` on count calls
-- Version 0.0.0.9000 released
-
-### Installation
+## Installation
 
 ```{r eval=FALSE}
 devtools::install_github("hrbrmstr/shodan")
@@ -62,10 +57,11 @@ devtools::install_github("hrbrmstr/shodan")
 options(width=120)
 ```
 
-### Usage
+## Usage
 
-```{r fo_sho, cache=TRUE}
+```{r fo_sho, cache=TRUE, message=FALSE, warning=FALSE}
 library(shodan)
+library(tibble) # for printing
 
 # current verison
 packageVersion("shodan")
@@ -74,24 +70,13 @@ shodan_ports()
 
 shodan_protocols()
 
-resolve("dds.ec")
+resolve("google.com")
 
-reverse("162.243.111.4")
+reverse("172.217.3.110")
 
 query_tags()$matches
 
 shodan_query_list()$matches
-```
-
-### Test Results
-
-```{r}
-library(shodan)
-library(testthat)
-
-date()
-
-test_dir("tests/")
 ```
 
 ### Code of Conduct

@@ -33,21 +33,23 @@
 #' @examples
 #' shodan_search("apache geo:42.9693,-74.1224")
 shodan_search <- function(query=NULL, facets=NULL, page=1, minify=TRUE) {
+  facets <- paste(facets, collapse = ",")
 
-  facets <- paste(facets, collapse=",")
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/host/search",
+    query = list(
+      query = query,
+      facets = facets,
+      page = page,
+      minify = minify,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/host/search",
-             query=list(query=query,
-                        facets=facets,
-                        page=page,
-                        minify=minify,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' Break the search query into tokens
@@ -66,16 +68,18 @@ shodan_search <- function(query=NULL, facets=NULL, page=1, minify=TRUE) {
 #' @examples
 #' shodan_search_tokens("iis net:216.0.0.0/16")
 shodan_search_tokens <- function(query=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/host/search/tokens",
+    query = list(
+      query = query,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/host/search/tokens",
-             query=list(query=query,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' Search the directory of saved search queries.
@@ -90,17 +94,19 @@ shodan_search_tokens <- function(query=NULL) {
 #' @examples
 #' shodan_query_search()
 shodan_query_search <- function(query=NULL, page=1) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/query/search",
+    query = list(
+      query = query,
+      page = page,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/query/search",
-             query=list(query=query,
-                        page=page,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
 
 #' List the saved search queries
@@ -118,17 +124,18 @@ shodan_query_search <- function(query=NULL, page=1) {
 #' @examples
 #' shodan_query_list()
 shodan_query_list <- function(page=1, sort=NULL, order=NULL) {
+  res <- httr::GET(
+    shodan_base_url,
+    path = "shodan/query",
+    query = list(
+      page = page,
+      sort = sort,
+      order = order,
+      key = shodan_api_key()
+    )
+  )
 
-  res <- GET(shodan_base_url,
-             path="shodan/query",
-             query=list(page=page,
-                        sort=sort,
-                        order=order,
-                        key=shodan_api_key()))
+  httr::stop_for_status(res)
 
-  stop_for_status(res)
-
-  fromJSON(content(res, as="text"))
-
+  jsonlite::fromJSON(httr::content(res, as = "text"))
 }
-

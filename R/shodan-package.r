@@ -5,6 +5,7 @@
 #'
 #' @name shodan
 #' @docType package
-#' @author Bob Rudis (@@hrbrmstr)
-#' @import httr jsonlite
+#' @author Bob Rudis (bob@@rud.is)
+#' @importFrom httr GET POST stop_for_status content
+#' @importFrom jsonlite fromJSON
 NULL
